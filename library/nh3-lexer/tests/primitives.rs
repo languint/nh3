@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use chumsky::{Parser, error::Simple};
+    use chumsky::Parser;
     use nh3_lexer::Token;
 
     #[test]

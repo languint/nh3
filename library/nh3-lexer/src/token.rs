@@ -2,10 +2,11 @@
 pub enum Token<'src> {
     Identifier(&'src str),
     Number(f64),
-    Bool(bool),
+    Boolean(bool),
     String(&'src str),
 
     Control(char),
+    Operator(&'src str),
 
     Fn,
     Let,
