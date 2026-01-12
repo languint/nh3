@@ -13,7 +13,12 @@ pub fn lexer<'src>() -> impl Parser<'src, &'src str, Vec<Spanned<Token<'src>>>> 
         .unwrapped()
         .map(Token::Number);
 
-    let token = number;
+    let str = just('"')
+        .ignore_then(none_of('"').repeated().to_slice())
+        .then_ignore(just('"'))
+        .map(Token::String);
+
+    let token = number.or(str);
 
     token
         .map_with(|t, e| (t, e.span()))
