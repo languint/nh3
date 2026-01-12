@@ -5,5 +5,5 @@ pub enum Token<'src> {
     Bool(bool),
     String(&'src str),
 
-    Ctrl(char),
+    Control(char),
 }

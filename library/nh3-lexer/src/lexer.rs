@@ -13,15 +13,17 @@ pub fn lexer<'src>() -> impl Parser<'src, &'src str, Vec<Spanned<Token<'src>>>> 
         .unwrapped()
         .map(Token::Number);
 
-    let str = just('"')
+    let string = just('"')
         .ignore_then(none_of('"').repeated().to_slice())
         .then_ignore(just('"'))
         .map(Token::String);
 
-    let token = number.or(str);
+    let control = one_of("()[]{};,").map(Token::Control);
+
+    let token = number.or(string).or(control);
 
     token
-        .map_with(|t, e| (t, e.span()))
+        .map_with(|token, err| (token, err.span()))
         .padded()
         .recover_with(skip_then_retry_until(any().ignored(), end()))
         .repeated()
