@@ -62,4 +62,66 @@ mod tests {
             )])
         )
     }
+
+    #[test]
+    fn test_lex_identifier() {
+        let src = r#"fn name() {}"#;
+
+        let lex = nh3_lexer::lexer().parse(src);
+
+        assert!(!lex.has_errors());
+        assert_eq!(
+            lex.into_output(),
+            Some(vec![
+                (
+                    Token::Fn,
+                    nh3_lexer::Span {
+                        start: 0,
+                        end: 2,
+                        context: ()
+                    }
+                ),
+                (
+                    Token::Identifier("name"),
+                    nh3_lexer::Span {
+                        start: 3,
+                        end: 7,
+                        context: ()
+                    }
+                ),
+                (
+                    Token::Control('('),
+                    nh3_lexer::Span {
+                        start: 7,
+                        end: 8,
+                        context: ()
+                    }
+                ),
+                (
+                    Token::Control(')'),
+                    nh3_lexer::Span {
+                        start: 8,
+                        end: 9,
+                        context: ()
+                    }
+                ),
+                (
+                    Token::Control('{'),
+                    nh3_lexer::Span {
+                        start: 10,
+                        end: 11,
+                        context: ()
+                    }
+                ),
+                (
+                    Token::Control('}'),
+                    nh3_lexer::Span {
+                        start: 11,
+                        end: 12,
+                        context: ()
+                    }
+                )
+            ])
+        )
+    }
 }

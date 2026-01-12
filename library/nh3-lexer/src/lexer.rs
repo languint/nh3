@@ -20,7 +20,13 @@ pub fn lexer<'src>() -> impl Parser<'src, &'src str, Vec<Spanned<Token<'src>>>> 
 
     let control = one_of("()[]{};,").map(Token::Control);
 
-    let token = number.or(string).or(control);
+    let identifier = text::ascii::ident().map(|ident: &str| match ident {
+        "fn" => Token::Fn,
+        "let" => Token::Let,
+        _ => Token::Identifier(ident),
+    });
+
+    let token = number.or(string).or(control).or(identifier);
 
     token
         .map_with(|token, err| (token, err.span()))

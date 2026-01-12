@@ -6,4 +6,7 @@ pub enum Token<'src> {
     String(&'src str),
 
     Control(char),
+
+    Fn,
+    Let,
 }
