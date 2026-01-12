@@ -18,23 +18,35 @@ pub fn lexer<'src>() -> impl Parser<'src, &'src str, Vec<Spanned<Token<'src>>>> 
         .then_ignore(just('"'))
         .map(Token::String);
 
+    let arrow = just("->")
+        .map(|_| Token::ThinArrow)
+        .or(just("=>").map(|_| Token::FatArrow));
+
     let op = one_of("+*-/!=")
         .repeated()
         .at_least(1)
         .to_slice()
         .map(Token::Operator);
 
-    let control = one_of("()[]{};,").map(Token::Control);
+    let control = one_of("()[]{};:,").map(Token::Control);
 
     let identifier = text::ascii::ident().map(|ident: &str| match ident {
         "fn" => Token::Fn,
         "let" => Token::Let,
         "true" => Token::Boolean(true),
         "false" => Token::Boolean(false),
+        "if" => Token::If,
+        "else" => Token::Else,
+        "return" => Token::Return,
         _ => Token::Identifier(ident),
     });
 
-    let token = number.or(string).or(op).or(control).or(identifier);
+    let token = number
+        .or(string)
+        .or(arrow)
+        .or(op)
+        .or(control)
+        .or(identifier);
 
     token
         .map_with(|token, err| (token, err.span()))

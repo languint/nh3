@@ -10,4 +10,10 @@ pub enum Token<'src> {
 
     Fn,
     Let,
+    If,
+    Else,
+    Return,
+
+    ThinArrow,
+    FatArrow,
 }
