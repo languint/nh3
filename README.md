@@ -1,2 +1,2 @@
 # nh3
-> A scripting language which transpiles to Desmos math equations
+> A lua to Desmos graphs transpiler

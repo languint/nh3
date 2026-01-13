@@ -1,5 +1,5 @@
 [package]
-name = "nh3c"
+name = "nh3-codegen"
 version = "0.1.0"
 edition = "2024"
 
