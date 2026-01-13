@@ -1,4 +1,4 @@
-use crate::codegen::CodegenInput;
+use crate::{codegen::CodegenInput, ir::literals::parse_number_literal};
 use full_moon::{
     LuaVersion,
     ast::Stmt,
@@ -9,6 +9,7 @@ use full_moon::{
 
 mod literals;
 
+#[derive(Debug, PartialEq, Clone)]
 pub enum IrNode {
     NumberLiteral(f64),
     StringLiteral(String),
@@ -59,16 +60,13 @@ impl Ir {
 
     fn parse_token(token_reference: &TokenReference) -> Result<IrNode, IrError> {
         match token_reference.token_type() {
-            TokenType::Number { text } => {
-                let number = text.parse::<f64>().map_err(IrError::InvalidNumberLiteral)?;
-
-                Ok(IrNode::NumberLiteral(number))
-            }
+            TokenType::Number { text } => parse_number_literal(text),
             _ => todo!(),
         }
     }
 }
 
+#[derive(Debug)]
 pub enum IrError {
     InvalidSrc(Vec<full_moon::Error>),
     InvalidNumberLiteral(std::num::ParseFloatError),
