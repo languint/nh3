@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["library/nh3-parser", "library/nh3-lexer"]
+members = ["library/nh3-parser", "library/nh3-lexer", "nh3c"]
 
 [workspace.lints.clippy]
 all = { level = "warn", priority = -1 }

@@ -109,7 +109,12 @@ name = "nh3-parser"
 version = "0.1.0"
 dependencies = [
  "chumsky",
+ "nh3-lexer",
 ]
+
+[[package]]
+name = "nh3c"
+version = "0.1.0"
 
 [[package]]
 name = "object"
