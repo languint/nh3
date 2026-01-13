@@ -6,8 +6,8 @@ use crate::{
 };
 
 pub struct CodegenInput<'src> {
-    file_name: &'src str,
-    content: &'src str,
+    pub file_name: &'src str,
+    pub content: &'src str,
 }
 
 pub type CodegenInputs<'src> = Vec<CodegenInput<'src>>;
