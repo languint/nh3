@@ -5,14 +5,14 @@ pub struct Square(u8);
 // CONSTRUCTORS //
 
 impl Square {
-    #[inline(always)]
+    #[inline]
     pub const fn new(idx: u8) -> Self {
         debug_assert!(idx < 64, "Square index out of range");
 
         Self(idx)
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn from_file_rank(file: u8, rank: u8) -> Self {
         debug_assert!(file < 8, "Square file out of range");
         debug_assert!(rank < 8, "Rank file out of range");
@@ -24,17 +24,17 @@ impl Square {
 // METHODS //
 
 impl Square {
-    #[inline(always)]
+    #[inline]
     pub const fn index(self) -> u8 {
         self.0
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn file(self) -> u8 {
         self.0 % 8
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn rank(self) -> u8 {
         self.0 / 8
     }

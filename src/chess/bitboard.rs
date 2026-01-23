@@ -1,4 +1,4 @@
-use std::arch::asm;
+use std::fmt::Write;
 
 use crate::chess::square::Square;
 
@@ -13,12 +13,12 @@ impl Bitboard {
 // CONSTRUCTORS //
 
 impl Bitboard {
-    #[inline(always)]
+    #[inline]
     pub fn new(bb: u64) -> Self {
         Self(bb)
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn mask(sq: Square) -> Self {
         debug_assert!(sq.index() < 64, "Square index out of rank");
 
@@ -35,7 +35,7 @@ impl From<Square> for Bitboard {
 // METHODS //
 
 impl Bitboard {
-    #[inline(always)]
+    #[inline]
     pub fn contains(self, sq: Square) -> bool {
         debug_assert!(sq.index() < 64);
 
@@ -78,7 +78,7 @@ impl std::fmt::Display for Bitboard {
                 });
             }
 
-            board_str.push_str(&format!("{file_str}\n"));
+            writeln!(board_str, "{file_str}")?;
         }
 
         write!(f, "{board_str}")
