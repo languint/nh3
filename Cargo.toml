@@ -3,11 +3,13 @@ name = "nh3"
 version = "0.1.0"
 edition = "2024"
 
-[workspace.lints.clippy]
+[features]
+default = ["unsafe_opt"]
+unsafe_opt = []
+
+[lints.clippy]
 all = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 unwrap_used = "deny"
-
-[workspace.dependencies]
 
 [dependencies]
