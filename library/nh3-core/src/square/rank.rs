@@ -1,6 +1,27 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct Rank(u8);
+impl Rank {
+    pub const FIRST: Rank = Rank(0);
+    pub const SECOND: Rank = Rank(1);
+    pub const THIRD: Rank = Rank(2);
+    pub const FOURTH: Rank = Rank(3);
+    pub const FIFTH: Rank = Rank(4);
+    pub const SIXTH: Rank = Rank(5);
+    pub const SEVENTH: Rank = Rank(6);
+    pub const EIGHTH: Rank = Rank(7);
+
+    pub const ALL: [Rank; 8] = [
+        Rank::FIRST,
+        Rank::SECOND,
+        Rank::THIRD,
+        Rank::FOURTH,
+        Rank::FIFTH,
+        Rank::SIXTH,
+        Rank::SEVENTH,
+        Rank::EIGHTH,
+    ];
+}
 
 impl Rank {
     #[must_use]

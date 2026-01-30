@@ -3,6 +3,10 @@ use crate::square::{File, Rank, Square};
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 #[repr(transparent)]
 pub struct Bitboard(u64);
+impl Bitboard {
+    pub const EMPTY: Bitboard = Bitboard(0);
+    pub const FULL: Bitboard = Bitboard(u64::MAX);
+}
 
 impl Bitboard {
     #[must_use]
@@ -42,7 +46,28 @@ impl Bitboard {
     #[must_use]
     #[inline]
     pub fn get_bit_at_square(&self, square: &Square) -> bool {
-        (self.get_value() & Self::square_mask(square).get_value()) != 0
+        (*self & Self::square_mask(square)) != Bitboard::EMPTY
+    }
+}
+
+impl std::ops::BitOr for Bitboard {
+    type Output = Bitboard;
+    fn bitor(self, rhs: Self) -> Self::Output {
+        Bitboard(self.0 | rhs.0)
+    }
+}
+
+impl std::ops::BitOr for &Bitboard {
+    type Output = Bitboard;
+    fn bitor(self, rhs: Self) -> Self::Output {
+        Bitboard(self.0 | rhs.0)
+    }
+}
+
+impl std::ops::BitAnd for Bitboard {
+    type Output = Bitboard;
+    fn bitand(self, rhs: Self) -> Self::Output {
+        Bitboard(self.0 & rhs.0)
     }
 }
 
