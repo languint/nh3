@@ -6,7 +6,7 @@ mod rank;
 pub use file::File;
 pub use rank::Rank;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct Square(u8);
 
