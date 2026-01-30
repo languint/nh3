@@ -7,6 +7,16 @@ pub enum Piece {
     Queen,
     King,
 }
+impl Piece {
+    pub const ALL: [Piece; 6] = [
+        Piece::Pawn,
+        Piece::Knight,
+        Piece::Bishop,
+        Piece::Rook,
+        Piece::Queen,
+        Piece::King,
+    ];
+}
 
 impl TryFrom<char> for Piece {
     type Error = String;

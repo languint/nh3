@@ -3,6 +3,9 @@ pub enum Color {
     White,
     Black,
 }
+impl Color {
+    pub const ALL: [Color; 2] = [Color::White, Color::Black];
+}
 
 impl TryFrom<char> for Color {
     type Error = String;
