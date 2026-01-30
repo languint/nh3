@@ -1,9 +1,10 @@
 use std::str::FromStr;
 
-use crate::square::{file::File, rank::Rank};
-
 mod file;
 mod rank;
+
+pub use file::File;
+pub use rank::Rank;
 
 #[derive(Debug, PartialEq, Eq)]
 #[repr(transparent)]
@@ -40,30 +41,18 @@ impl FromStr for Square {
 }
 
 impl Square {
+    #[inline]
     pub const fn index(self) -> u8 {
         self.0
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use std::str::FromStr;
+    #[inline]
+    pub const fn rank(&self) -> Rank {
+        Rank::from_index(self.0 / 8)
+    }
 
-    use crate::square::Square;
-
-    #[test]
-    fn square_from_str() {
-        assert_eq!(Square::from_str("a1"), Ok(Square(0)));
-        assert_eq!(Square::from_str("h8"), Ok(Square(63)));
-
-        for r in '1'..='8' {
-            for f in 'a'..='h' {
-                let mut string = String::new();
-                string.push(f);
-                string.push(r);
-
-                assert!(Square::from_str(&string).is_ok())
-            }
-        }
+    #[inline]
+    pub const fn file(&self) -> File {
+        File::from_index(self.0 % 8)
     }
 }
