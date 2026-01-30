@@ -73,10 +73,10 @@ impl std::ops::BitAnd for Bitboard {
 
 impl std::fmt::Display for Bitboard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        for r in (0..=7).rev() {
+        for r in Rank::ALL.iter().rev() {
             let mut file_str = String::new();
-            for f in 0..=7 {
-                let bit = self.get_bit_at_square(&Square::from_index(r * 8 + f));
+            for f in &File::ALL {
+                let bit = self.get_bit_at_square(&Square::from_rank_file(r, f));
 
                 if bit {
                     file_str.push_str("1 ");

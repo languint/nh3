@@ -22,8 +22,8 @@ mod tests {
 
     #[test]
     fn square_rank_file() {
-        for r in (0..=7).map(|r| Rank::from_index(r)) {
-            for f in (0..=7).map(|f| File::from_index(f)) {
+        for r in Rank::ALL {
+            for f in File::ALL {
                 let sq = Square::from_rank_file(&r, &f);
                 assert_eq!(sq.file(), f);
                 assert_eq!(sq.rank(), r);
