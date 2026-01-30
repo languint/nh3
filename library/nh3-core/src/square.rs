@@ -11,12 +11,14 @@ pub use rank::Rank;
 pub struct Square(u8);
 
 impl Square {
+    #[must_use]
     pub const fn from_index(index: u8) -> Square {
         debug_assert!(index < 64, "Square::from_index, index out of range");
 
         Square(index)
     }
 
+    #[must_use]
     pub const fn from_rank_file(rank: &Rank, file: &File) -> Square {
         Square::from_index(rank.index() * 8 + file.index())
     }
@@ -41,16 +43,19 @@ impl FromStr for Square {
 }
 
 impl Square {
+    #[must_use]
     #[inline]
     pub const fn index(self) -> u8 {
         self.0
     }
 
+    #[must_use]
     #[inline]
     pub const fn rank(&self) -> Rank {
         Rank::from_index(self.0 / 8)
     }
 
+    #[must_use]
     #[inline]
     pub const fn file(&self) -> File {
         File::from_index(self.0 % 8)
